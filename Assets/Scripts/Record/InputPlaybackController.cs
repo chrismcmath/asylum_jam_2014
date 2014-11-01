@@ -15,14 +15,13 @@ public class InputPlaybackController : MonoBehaviour {
 
 	public bool isRecording = true;
 	public int PlaybackIndex = 0;
-	public int RecordRate = 25;
 
 	public Component[] DisableList;
 
 	// Use this for initialization
 	void Start () {
 		//RecordedPositions = new ArrayList();
-		InvokeRepeating("Record",0, 1.0f/RecordRate );
+		InvokeRepeating("Record",0, 1.0f/RecordConfig.Instance.RecordRate);
 	}
 	
 	// Update is called once per frame
