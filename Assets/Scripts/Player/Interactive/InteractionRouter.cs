@@ -28,7 +28,7 @@ public class InteractionRouter : MonoBehaviour {
         if (Physics.Raycast(ray, out hit, 3f, GlobalConfig.Instance.InteractionLayerMask)) {
             Debug.DrawLine(ray.origin, hit.point);
             InteractiveObject obj = hit.collider.gameObject.GetComponent<InteractiveObject>();
-            Debug.Log("SUCCESS got obj "+ hit.collider.gameObject.name);
+            //Debug.Log("SUCCESS got obj "+ hit.collider.gameObject.name);
             return obj;
         }
         return null;

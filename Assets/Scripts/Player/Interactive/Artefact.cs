@@ -5,7 +5,6 @@ public class Artefact : HoldableObject {
     public string Key;
 
     public override void OnPickUp() {
-        Debug.Log("OnPickUp " + Key);
         ArtefactCreator.Instance.Create(Key);
     }
 
