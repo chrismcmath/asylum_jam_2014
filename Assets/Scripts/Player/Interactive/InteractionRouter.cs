@@ -2,21 +2,16 @@ using UnityEngine;
 using System.Collections;
 
 public class InteractionRouter : MonoBehaviour {
-    //public enum state {AVAILABLE, LOCKED}
-
     public InteractiveObject _HeldObject = null;
 
     public void OnAction() {
         if (_HeldObject != null) {
-            _HeldObject.OnAction();
+            if (!_HeldObject.OnAction()) {
+                _HeldObject = null;
+            }
             return;
         }
 
-        /*
-        if (state == LOCKED) {
-            return;
-        }
-        */
         InteractiveObject obj = GetInteractiveObject();
 
         if (obj != null && obj.OnAction()) {
@@ -25,13 +20,15 @@ public class InteractionRouter : MonoBehaviour {
     }
 
     private InteractiveObject GetInteractiveObject() {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Ray ray = new Ray(transform.position, forward);
         RaycastHit hit;
+        Debug.DrawRay(transform.position, forward, Color.green);
 
-        if (Physics.Raycast(ray, out hit, 8f, GlobalConfig.Instance.InteractionLayerMask)) {
+        if (Physics.Raycast(ray, out hit, 3f, GlobalConfig.Instance.InteractionLayerMask)) {
             Debug.DrawLine(ray.origin, hit.point);
             InteractiveObject obj = hit.collider.gameObject.GetComponent<InteractiveObject>();
-            Debug.Log("SUCCESS got obj {0}", obj);
+            Debug.Log("SUCCESS got obj "+ hit.collider.gameObject.name);
             return obj;
         }
         return null;
