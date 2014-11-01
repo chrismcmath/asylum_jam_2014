@@ -332,6 +332,12 @@ function FixedUpdate () {
 }
 
 function Update () {
+	// Tobi: 
+	if (Input.GetKeyDown(KeyCode.Backspace)) {
+		canControl = false;
+	}
+		
+
 	if (!useFixedUpdate)
 		UpdateFunction();
 }
