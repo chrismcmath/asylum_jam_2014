@@ -9,6 +9,7 @@ public class InteractionRouter : MonoBehaviour {
     public void OnAction() {
         if (_HeldObject != null) {
             _HeldObject.OnAction();
+            return;
         }
 
         /*
@@ -24,10 +25,15 @@ public class InteractionRouter : MonoBehaviour {
     }
 
     private InteractiveObject GetInteractiveObject() {
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), 10))
-            Debug.Log("yes");
-        else 
-            Debug.Log("no");
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 8f, GlobalConfig.Instance.InteractionLayerMask)) {
+            Debug.DrawLine(ray.origin, hit.point);
+            InteractiveObject obj = hit.collider.gameObject.GetComponent<InteractiveObject>();
+            Debug.Log("SUCCESS got obj {0}", obj);
+            return obj;
+        }
         return null;
     }
 }
