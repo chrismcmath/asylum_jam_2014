@@ -13,15 +13,20 @@ public class InputPlaybackController : MonoBehaviour {
 	List<Vector3> RecordedPositions = new List<Vector3>();
 	List<Vector3> RecordedRotations = new List<Vector3>();
 
-	public bool isRecording = true;
 	public int PlaybackIndex = 0;
 
 	public Component[] DisableList;
 
+	private RecordConfigSimple _config;
+
+	void Awake() {
+		_config = GameObject.Find("Global").GetComponent<RecordConfigSimple>();
+	}
+
 	// Use this for initialization
 	void Start () {
 		//RecordedPositions = new ArrayList();
-		InvokeRepeating("Record",0, 1.0f/RecordConfig.Instance.RecordRate);
+		InvokeRepeating("Record",0, 1.0f/_config.RecordRate);
 	}
 	
 	// Update is called once per frame
@@ -36,12 +41,12 @@ public class InputPlaybackController : MonoBehaviour {
 			print (debugInfo);
 			*/
 			DisableComponents();
-			isRecording = false;
+			_config.isRecording = false;
 		}
 	}
 
 	void FixedUpdate() {
-		if (!isRecording) Playback();
+		if (!_config.isRecording) Playback();
 	}
 
 	public void Playback() {
@@ -56,7 +61,7 @@ public class InputPlaybackController : MonoBehaviour {
 	public void Record() {
 		// save our current position and rotation
 
-		if (!isRecording)
+		if (!_config.isRecording)
 			return;
 
 		RecordedPositions.Add(transform.position);
@@ -64,6 +69,10 @@ public class InputPlaybackController : MonoBehaviour {
 	}
 
 	public void DisableComponents(){
+		//disable player cam
+		Camera cam = GetComponentInChildren<Camera>();
+		cam.gameObject.SetActive(false);
+
 		//disable components
 		MouseLook[] m = GetComponentsInChildren<MouseLook>();
 		foreach (MouseLook s in m) {
