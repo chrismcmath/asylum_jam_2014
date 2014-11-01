@@ -2,9 +2,11 @@
 using System.Collections;
 
 public class ActionButtonListener : MonoBehaviour {
+    public const string ACTIVATE_ACTION = "OnAction";
+
 	public void Update () {
         if (Input.GetButtonUp("Action")) {
-            Debug.Log("ACtion button pressed");
+            gameObject.SendMessage(ACTIVATE_ACTION);
         }
 	}
 }
