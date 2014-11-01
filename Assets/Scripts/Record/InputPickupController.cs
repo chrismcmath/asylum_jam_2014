@@ -3,6 +3,7 @@ using System.Collections;
 
 public class InputPickupController : MonoBehaviour {
 	public bool HoldingObj = false;
+	public bool HoldingBaby;
 	public GameObject ObjInHand;
 	public GameObject CollisionObj;
 	// Use this for initialization
@@ -23,6 +24,7 @@ public class InputPickupController : MonoBehaviour {
 				ObjInHand.transform.parent = null;
 				ObjInHand = null;
 				HoldingObj = false;
+				HoldingBaby = false;
 			} else { // PICK UP
 				if (CollisionObj == null) 
 					return;
@@ -33,6 +35,7 @@ public class InputPickupController : MonoBehaviour {
 				CollisionObj.transform.parent = transform.parent.transform;
 				ObjInHand = CollisionObj;
 				HoldingObj = true;
+				if(CollisionObj.tag == "Baby") HoldingBaby = true;
 			}
 		}
 	}
