@@ -48,7 +48,7 @@ public class BabyCamController : MonoBehaviour {
 
 		// find ID of gameobject that called this function
 		for (int i=0; i<BabyCams.Length; i++) {
-			print (refID + " vs: " + BabyCams[i].gameObject.GetInstanceID() );
+			//print (refID + " vs: " + BabyCams[i].gameObject.GetInstanceID() );
 
 			if (BabyCams[i].gameObject.GetInstanceID() == refID)
 				id = i;

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DarknessController : MonoBehaviour {
 	public bool Active;
+	public GameObject ParticlesPrefab;
 	public Transform HomeTarget;
 	public Transform BabyTarget;
 	public NavMeshAgent Agent;
@@ -10,11 +11,13 @@ public class DarknessController : MonoBehaviour {
 	public InputPickupController PickupCtrl;
 
 	public ParticleSystem ps;
+	public DarknessParticleAgent pAgent;
 	private float AgentNormalSpeed;
 	private float AgentBackSpeed;
+	public bool restarted;
 
 	void Awake(){
-		ps.randomSeed = 1;
+
 	}
 
 	// Use this for initialization
@@ -22,25 +25,41 @@ public class DarknessController : MonoBehaviour {
 		//ps.GetComponent<ParticleSystem>();
 		AgentNormalSpeed = Agent.speed;
 		AgentBackSpeed = Agent.speed *2;
+		GameObject clone;
+		clone = Instantiate(ParticlesPrefab, transform.position, Quaternion.identity) as GameObject;
+		pAgent = clone.GetComponent<DarknessParticleAgent>();
+		clone.transform.parent = transform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (!Active)
+			return;
+
+
 		if (PickupCtrl.HoldingBaby) {
 			Agent.SetDestination(HomeTarget.position);
-		//	if(!BabyWind.activeSelf) BabyWind.SetActive(true);
-			//if(ps.isPlaying) {
-				//ps.Stop();
+			if(!BabyWind.activeSelf) BabyWind.SetActive(true);
+			if(restarted) {
+
+				pAgent.enabled = true; // just turn it on, script handles the rest
+				//ps.gameObject.transform.parent = null;
+				restarted = false;
 				//ps.Simulate(0.0f,false,true);
-			//}
+			}
 			Agent.speed = AgentBackSpeed;
 		} else {
 			Agent.SetDestination(BabyTarget.position);
-		//	if(BabyWind.activeSelf) BabyWind.SetActive(false);
-			if(ps.isStopped == true) {
-				print ("cfdefdedfefvd");
+			if(BabyWind.activeSelf) BabyWind.SetActive(false);
+			if(!restarted) {
+				//print ("cfdefdedfefvd");
 				//ps.Simulate(0.0f,false,true);
 				//ps.Play();
+				GameObject clone;
+				clone = Instantiate(ParticlesPrefab, transform.position, Quaternion.identity) as GameObject;
+				pAgent = clone.GetComponent<DarknessParticleAgent>();
+				clone.transform.parent = transform;
+				restarted = true;
 
 			}
 			Agent.speed = AgentNormalSpeed;

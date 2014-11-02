@@ -10,6 +10,10 @@ using System.Collections.Generic;
  */
 
 public class InputPlaybackController : MonoBehaviour {
+	public bool PlaybackEnabled = true;
+	public bool isPlayer;
+	public GameObject DarknessEffect;
+
 	List<Vector3> RecordedPositions = new List<Vector3>();
 	List<Vector3> RecordedRotations = new List<Vector3>();
 
@@ -41,6 +45,13 @@ public class InputPlaybackController : MonoBehaviour {
 			print (debugInfo);
 			*/
 			DisableComponents();
+			if (isPlayer) {
+				// turn on darkness
+				GameObject clone = Instantiate(DarknessEffect, transform.position, Quaternion.identity) as GameObject;
+				clone.transform.parent = transform;
+
+			}
+
 			_config.isRecording = false;
 		}
 	}
@@ -50,6 +61,15 @@ public class InputPlaybackController : MonoBehaviour {
 	}
 
 	public void Playback() {
+		// dont playback but reset if we're not enabling playback
+		if (!PlaybackEnabled) {			
+			transform.position = RecordedPositions[PlaybackIndex];
+			transform.eulerAngles = RecordedRotations[PlaybackIndex];
+
+			gameObject.SetActive(false);
+			return;
+		}
+
 		transform.position = RecordedPositions[PlaybackIndex];
 		transform.eulerAngles = RecordedRotations[PlaybackIndex];
 		PlaybackIndex++;
@@ -71,7 +91,7 @@ public class InputPlaybackController : MonoBehaviour {
 	public void DisableComponents(){
 		//disable player cam
 		Camera cam = GetComponentInChildren<Camera>();
-		cam.gameObject.SetActive(false);
+		if (cam != null) cam.gameObject.SetActive(false);
 
 		//disable components
 		MouseLook[] m = GetComponentsInChildren<MouseLook>();
