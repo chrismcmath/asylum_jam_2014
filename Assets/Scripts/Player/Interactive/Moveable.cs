@@ -8,13 +8,15 @@ public class Moveable : HoldableObject {
         _Rigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
-    public override void OnPickUp() {
+    public override bool OnPickUp() {
         _Rigidbody.isKinematic = true;
         transform.parent = GlobalConfig.Instance.PlayerObjectRoot;
+        return true;
     }
 
-    public override void OnPutDown() {
+    public override bool OnPutDown() {
         _Rigidbody.isKinematic = false;
         transform.parent = GlobalConfig.Instance.SceneRoot;
+        return true;
     }
 }

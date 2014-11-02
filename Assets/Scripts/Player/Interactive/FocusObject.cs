@@ -13,15 +13,24 @@ public class FocusObject : HoldableObject {
     public void Awake() {
     }
 
-    public override void OnPickUp() {
+    public override bool OnPickUp() {
         GlobalConfig.Instance.Player.GetComponent<MovementActivator>().Deactivate();
         //GlobalConfig.Instance.Player.GetComponent<Rigidbody>().isKinematic = false;
 
-        _PositionTween.Start(GlobalConfig.Instance.Player.transform.position, ViewAnchor.position, GlobalConfig.Instance.FocusObjectTweenTime, ScaleFuncs.CubicEaseOut);
-        _RotationTween.Start(GlobalConfig.Instance.Player.transform.rotation, ViewAnchor.rotation, GlobalConfig.Instance.FocusObjectTweenTime, ScaleFuncs.CubicEaseOut);
+        _OriginalPosition = GlobalConfig.Instance.Player.transform.position;
+        _OriginalRotation = GlobalConfig.Instance.Player.transform.rotation;
+
+        _PositionTween.Start(_OriginalPosition, ViewAnchor.position, GlobalConfig.Instance.FocusObjectTweenTime, ScaleFuncs.CubicEaseOut);
+        _RotationTween.Start(_OriginalRotation, ViewAnchor.rotation, GlobalConfig.Instance.FocusObjectTweenTime, ScaleFuncs.CubicEaseOut);
+        return true;
     }
 
-    public override void OnPutDown() {
+    public override bool OnPutDown() {
+        _PositionTween.Start(GlobalConfig.Instance.Player.transform.position, _OriginalPosition, GlobalConfig.Instance.FocusObjectTweenTime, ScaleFuncs.CubicEaseOut);
+        _RotationTween.Start(GlobalConfig.Instance.Player.transform.rotation, _OriginalRotation, GlobalConfig.Instance.FocusObjectTweenTime, ScaleFuncs.CubicEaseOut);
+
+        StartCoroutine(ReactivatePlayerMovement());
+        return true;
     }
 
     public void Update() {
@@ -35,5 +44,11 @@ public class FocusObject : HoldableObject {
         if (_RotationTween.State == TweenState.Running) {
             GlobalConfig.Instance.Player.transform.rotation = _RotationTween.CurrentValue;
         }
+    }
+
+    private IEnumerator ReactivatePlayerMovement() {
+        yield return new WaitForSeconds(GlobalConfig.Instance.FocusObjectTweenTime);
+
+        GlobalConfig.Instance.Player.GetComponent<MovementActivator>().Activate();
     }
 }

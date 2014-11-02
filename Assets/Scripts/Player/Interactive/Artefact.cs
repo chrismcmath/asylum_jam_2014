@@ -4,11 +4,13 @@ using System.Collections;
 public class Artefact : HoldableObject {
     public string Key;
 
-    public override void OnPickUp() {
+    public override bool OnPickUp() {
         ArtefactCreator.Instance.Create(Key);
+        return true;
     }
 
-    public override void OnPutDown() {
+    public override bool OnPutDown() {
         ArtefactCreator.Instance.Destroy();
+        return true;
     }
 }

@@ -10,17 +10,21 @@ public class BabyController : HoldableObject {
         BabyModel.Instance.AddStateChangeListener(OnStateChange);
     }
 
-    public override void OnPickUp() {
+    public override bool OnPickUp() {
         _Rigidbody.isKinematic = true;
         transform.parent = GlobalConfig.Instance.PlayerObjectRoot;
 
         BabyModel.Instance.State = BabyModel.BabyState.HELD;
+        
+        return true;
     }
 
-    public override void OnPutDown() {
+    public override bool OnPutDown() {
         _Rigidbody.isKinematic = false;
         transform.parent = GlobalConfig.Instance.SceneRoot;
         BabyModel.Instance.State = BabyModel.BabyState.DOWN;
+
+        return true;
     }
 
     public void OnStateChange(BabyModel.BabyState state) {
