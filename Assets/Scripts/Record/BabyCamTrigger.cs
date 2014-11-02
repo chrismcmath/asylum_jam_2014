@@ -12,7 +12,7 @@ public class BabyCamTrigger : MonoBehaviour {
 	void Start(){
 		// get the instance ID of the camera
 		Camera cam;
-		cam = transform.root.GetComponentInChildren<Camera>();
+		cam = transform.parent.transform.GetComponentInChildren<Camera>();
 		MyID = cam.gameObject.GetInstanceID();
 
 		//cam.gameObject.SetActive(false);

@@ -18,7 +18,7 @@ public class DarknessParticleAgent : MonoBehaviour {
 		Agent = GetComponent<NavMeshAgent>();
 		Agent.enabled = true;
 		HomeTarget = GameObject.Find("Darkness Start").transform;
-		AgentBackSpeed = Agent.speed *2;
+		AgentBackSpeed = Agent.speed *3;
 		transform.parent = null;
 		ps.enableEmission = false;
 

@@ -8,10 +8,11 @@ public class DarknessController : MonoBehaviour {
 	public Transform BabyTarget;
 	public NavMeshAgent Agent;
 	public GameObject BabyWind;
-	public InputPickupController PickupCtrl;
+	//public InputPickupController PickupCtrl;
+	public BabyModel Baby;
 
-	public ParticleSystem ps;
-	public DarknessParticleAgent pAgent;
+	private ParticleSystem ps;
+	private DarknessParticleAgent pAgent;
 	private float AgentNormalSpeed;
 	private float AgentBackSpeed;
 	public bool restarted;
@@ -24,7 +25,7 @@ public class DarknessController : MonoBehaviour {
 	void Start () {
 		//ps.GetComponent<ParticleSystem>();
 		AgentNormalSpeed = Agent.speed;
-		AgentBackSpeed = Agent.speed *2;
+		AgentBackSpeed = Agent.speed *3;
 		GameObject clone;
 		clone = Instantiate(ParticlesPrefab, transform.position, Quaternion.identity) as GameObject;
 		pAgent = clone.GetComponent<DarknessParticleAgent>();
@@ -37,7 +38,7 @@ public class DarknessController : MonoBehaviour {
 			return;
 
 
-		if (PickupCtrl.HoldingBaby) {
+		if (Baby.State == BabyModel.BabyState.HELD) {
 			Agent.SetDestination(HomeTarget.position);
 			if(!BabyWind.activeSelf) BabyWind.SetActive(true);
 			if(restarted) {

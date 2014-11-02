@@ -25,7 +25,7 @@ public class BabyCamController : MonoBehaviour {
 		ActiveID = id;
 
 		if ( id == -1 ) {
-			print("Baby cam id not found in list of available cams! id: " + id );
+			print("Baby cam id not found in list of available cams! id: " + id + "  ref id: " + refID );
 			return;
 		}
 

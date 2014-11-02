@@ -5,12 +5,21 @@ public class BabyController : HoldableObject {
     private Rigidbody _Rigidbody = null;
 
     private Transform _BabyDockAnchor;
+	private GameController GC;
+	
+	void Awake() {
+		GC = GameObject.Find("Global").GetComponent<GameController>();
 
-    public void Awake() {
         _Rigidbody = gameObject.GetComponent<Rigidbody>();
 
         BabyModel.Instance.AddStateChangeListener(OnStateChange);
     }
+
+	void OnTriggerEnter (Collider other) {
+		if (other.tag == "Baby") {
+			GC.GameWin();
+		}
+	}
 
     public override bool OnPickUp() {
         transform.parent = GlobalConfig.Instance.PlayerObjectRoot;

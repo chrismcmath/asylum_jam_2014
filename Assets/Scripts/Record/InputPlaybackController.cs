@@ -47,9 +47,9 @@ public class InputPlaybackController : MonoBehaviour {
 			DisableComponents();
 			if (isPlayer) {
 				// turn on darkness
-				GameObject clone = Instantiate(DarknessEffect, transform.position, Quaternion.identity) as GameObject;
-				clone.transform.parent = transform;
-
+				//GameObject clone = Instantiate(DarknessEffect, transform.position, Quaternion.identity) as GameObject;
+				//clone.transform.parent = transform;
+				DarknessEffect.SetActive(true);
 			}
 
 			_config.isRecording = false;
