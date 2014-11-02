@@ -2,13 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class BabyController : HoldableObject {
-    private Rigidbody _Rigidbody = null;
-
     private Transform _BabyDockAnchor;
 
     public void Awake() {
-        _Rigidbody = gameObject.GetComponent<Rigidbody>();
-
         BabyModel.Instance.AddStateChangeListener(OnStateChange);
     }
 
