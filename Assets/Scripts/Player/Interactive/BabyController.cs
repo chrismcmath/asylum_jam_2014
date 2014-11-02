@@ -9,7 +9,7 @@ public class BabyController : HoldableObject {
     }
 
     public override bool OnPickUp() {
-        transform.parent = GlobalConfig.Instance.PlayerObjectRoot;
+        transform.parent = GlobalConfig.Instance.PlayerBabyRoot;
         TweenToZero(GlobalConfig.Instance.FocusObjectTweenTime);
 
         BabyModel.Instance.State = BabyModel.BabyState.HELD;

@@ -11,6 +11,7 @@ public class GlobalConfig : Singleton<GlobalConfig> {
 	public GameObject Player;
 	public GameObject PlayerCamera;
 	public Transform PlayerObjectRoot;
+	public Transform PlayerBabyRoot;
 	public Transform SceneRoot;
     public LayerMask InteractionLayerMask;
     public SafeController SafeController;
