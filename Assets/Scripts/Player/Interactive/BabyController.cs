@@ -63,7 +63,7 @@ public class BabyController : HoldableObject {
         Vector3 forward = sourceTransform.TransformDirection(Vector3.forward) * 100f;
 
         RaycastHit[] hits;
-        hits = Physics.RaycastAll(sourceTransform.position, forward, 100.0F);
+        hits = Physics.RaycastAll(sourceTransform.position, forward, 2f);
         Debug.DrawRay(GlobalConfig.Instance.Player.transform.position, forward, Color.green);
         int i = 0;
         while (i < hits.Length) {
