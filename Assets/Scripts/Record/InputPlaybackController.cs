@@ -31,7 +31,7 @@ public class InputPlaybackController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Backspace)) {
+		if (Input.GetKeyDown(KeyCode.Tab)) {
 
 			/*
 			string debugInfo = "";
