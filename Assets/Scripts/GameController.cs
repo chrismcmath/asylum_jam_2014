@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 	public GameObject StartText;
 	public GameObject TextPrefab;
 	public Transform TextLocation;
+	public GameObject Player;
 
 	private bool LoadTextStarted;
 	private float NextTextTime;
@@ -68,6 +69,8 @@ public class GameController : MonoBehaviour {
 		txt = "YOU SAVED DA BABBEYH! ";
 		time = 10.0f;
 		LoadTextStarted = true;
+
+		Player.BroadcastMessage("TurnOff");
 	}
 	
 	

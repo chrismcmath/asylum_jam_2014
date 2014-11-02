@@ -331,9 +331,13 @@ function FixedUpdate () {
 		UpdateFunction();
 }
 
+function TurnOff() {
+	canControl = false;
+}
+
 function Update () {
 	// Tobi: 
-	if (Input.GetKeyDown(KeyCode.Backspace)) {
+	if (Input.GetKeyDown(KeyCode.Tab)) {
 		canControl = false;
 	}
 		

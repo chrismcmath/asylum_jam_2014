@@ -12,6 +12,7 @@ using System.Collections.Generic;
 public class InputPlaybackController : MonoBehaviour {
 	public bool PlaybackEnabled = true;
 	public bool isPlayer;
+	public bool isBaby;
 	public GameObject DarknessEffect;
 
 	List<Vector3> RecordedPositions = new List<Vector3>();
@@ -22,8 +23,12 @@ public class InputPlaybackController : MonoBehaviour {
 	public Component[] DisableList;
 
 	private RecordConfigSimple _config;
-
+	private GameController GC;
+	private bool turnedOff;
+	
 	void Awake() {
+		GC = GameObject.Find("Global").GetComponent<GameController>();
+
 		_config = GameObject.Find("Global").GetComponent<RecordConfigSimple>();
 	}
 
@@ -35,31 +40,35 @@ public class InputPlaybackController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Backspace)) {
-
-			/*
-			string debugInfo = "";
-			foreach (Vector3 v in RecordedPositions) {
-				debugInfo += v + " : ";
-			}
-			print (debugInfo);
-			*/
-			DisableComponents();
-			if (isPlayer) {
-				// turn on darkness
-				//GameObject clone = Instantiate(DarknessEffect, transform.position, Quaternion.identity) as GameObject;
-				//clone.transform.parent = transform;
-				DarknessEffect.SetActive(true);
-			}
-
-			_config.isRecording = false;
+		if (Input.GetKeyDown(KeyCode.Tab)) {
+			TurnOff();
 		}
+
+		if (!turnedOff && GC.GameState == GameController.GameStates.WIN ) {
+			TurnOff();
+		}
+
 	}
 
 	void FixedUpdate() {
 		if (!_config.isRecording) Playback();
 	}
 
+	public void TurnOff(){
+
+		if (isPlayer) {
+			DarknessEffect.SetActive(true);
+		}
+		if (isBaby) {
+			transform.parent = null;
+		}
+
+		DisableComponents();
+		turnedOff = true;
+		
+		_config.isRecording = false;
+	}
+	
 	public void Playback() {
 		// dont playback but reset if we're not enabling playback
 		if (!PlaybackEnabled) {			
