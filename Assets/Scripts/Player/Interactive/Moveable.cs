@@ -17,6 +17,7 @@ public class Moveable : HoldableObject {
 
     public override bool OnPutDown() {
         _Rigidbody.isKinematic = false;
+        _Rigidbody.useGravity = true;
         transform.parent = GlobalConfig.Instance.SceneRoot;
 
         if (_Tweener != null) {
