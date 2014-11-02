@@ -12,10 +12,12 @@ public abstract class HoldableObject : InteractiveObject {
     public override bool OnAction() {
 		if (!_IsHeld) {
             if (OnPickUp()) {
+                GetComponent<Collider>().enabled = false;
                 _IsHeld = true;
             }
         } else {
             if (OnPutDown()) {
+                GetComponent<Collider>().enabled = true;
                 _IsHeld = false;
             }
         }
