@@ -13,6 +13,7 @@ public class GlobalConfig : Singleton<GlobalConfig> {
 	public Transform PlayerObjectRoot;
 	public Transform SceneRoot;
     public LayerMask InteractionLayerMask;
+    public SafeController SafeController;
     public WindowsController WindowsController;
 
     public GameObject ArtefactRoot;
@@ -21,4 +22,5 @@ public class GlobalConfig : Singleton<GlobalConfig> {
     public float FocusObjectTweenTime = 2f;
     public float BatteryDisappearDelay = 2f;
     public string ComputerPassword = "sarah";
+    public string SafePassword = "4991";
 }
