@@ -10,13 +10,21 @@ public class Moveable : HoldableObject {
 
     public override bool OnPickUp() {
         _Rigidbody.isKinematic = true;
-        transform.parent = GlobalConfig.Instance.PlayerObjectRoot;
+        Transform objRoot = GlobalConfig.Instance.PlayerObjectRoot;
+        transform.parent = objRoot;
+
+        TweenToZero(GlobalConfig.Instance.FocusObjectTweenTime);
         return true;
     }
 
     public override bool OnPutDown() {
         _Rigidbody.isKinematic = false;
         transform.parent = GlobalConfig.Instance.SceneRoot;
+
+        if (_Tweener != null) {
+            Destroy(_Tweener);
+        }
+
         return true;
     }
 }
