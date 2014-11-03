@@ -11,6 +11,7 @@ public class BlackScreenUI : MonoBehaviour {
     }
 
     public void FadeOut(float speed) {
+        Debug.Log("black screen: " + BlackScreen + " get GetComponent: " + GetComponent<Image>());
         BlackScreen.CrossFadeAlpha(0f, speed, true);
         Title.text = "";
     }

@@ -31,7 +31,9 @@ public class GameController : MonoBehaviour {
 		switch (GameState) {
 			case GameStates.START: 
 				if (Input.GetMouseButtonDown(0)){
-                    BlackScreen.FadeOut(2f);
+                    if (BlackScreen != null) {
+                        BlackScreen.FadeOut(2f);
+                    }
 
 					GameState = GameStates.PLAYING;
 				}

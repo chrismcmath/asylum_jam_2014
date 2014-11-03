@@ -62,7 +62,6 @@ public class BabyController : HoldableObject {
     }
 
     private void OnBabyHeld() {
-        Debug.Log("OnBabyHeld");
         CryNoise.Stop();
         SleepNoise.Play();
     }
@@ -70,7 +69,6 @@ public class BabyController : HoldableObject {
         GetComponent<Collider>().enabled = true;
         SleepNoise.Stop();
         CryNoise.Play();
-        Debug.Log("OnBabyDown");
         if (_BabyDockAnchor == null) {
             Debug.Log("ERROR No _BabyDockAnchor set");
         }
@@ -78,7 +76,6 @@ public class BabyController : HoldableObject {
         TweenToZero(GlobalConfig.Instance.FocusObjectTweenTime);
     }
     private void OnBabyCry() {
-        Debug.Log("OnBabyCry");
     }
 
     private BabyDockController GetBabyDock() {
