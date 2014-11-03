@@ -18,22 +18,12 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
  
-// For Unity, we can check all the individual platform defines to infer the environment.
-#if UNITY_EDITOR || UNITY_STANDALONE_OSX || UNITY_DASHBOARD_WIDGET || UNITY_STANDALONE_WIN || UNITY_STANDALONE_LINUX || UNITY_WEBPLAYER || UNITY_WII || UNITY_IPHONE || UNITY_ANDROID || UNITY_PS3 || UNITY_XBOX360 || UNITY_NACL || UNITY_FLASH
 #define UNITY
-#else
-// For XNA, you can either go into the project and add 'XNA' to the Build defines list or you can uncomment the following line.
-//#define XNA
-#endif
  
 using System;
  
 // XNA and Unity have such similar APIs we can use the same code by just swapping the namespaces.
-#if XNA
-using Microsoft.Xna.Framework;
-#elif UNITY
 using UnityEngine;
-#endif
  
 namespace TinyTween
 {

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class BabyModel : Singleton<BabyModel> {
-    public enum BabyState {HELD=0, DOWN, CRY};
+    public enum BabyState {HELD=0, DOWN, CRY, OUT};
 
     public float CryDelay = 5.0f;
 

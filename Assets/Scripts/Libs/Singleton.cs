@@ -70,6 +70,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     /// So, this was made to be sure we're not creating that buggy ghost object.
     /// </summary>
     public void OnDestroy () {
-        applicationIsQuitting = true;
+        //Hacky fix, getting error on restarting the scene
+        //applicationIsQuitting = true;
     }
 }

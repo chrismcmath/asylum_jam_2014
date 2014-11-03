@@ -10,6 +10,7 @@ public class GlobalConfig : Singleton<GlobalConfig> {
 
 	public GameObject Player;
 	public GameObject PlayerCamera;
+	public GameObject PlayerDarkness;
 	public Transform PlayerObjectRoot;
 	public Transform PlayerBabyRoot;
 	public Transform SceneRoot;
@@ -21,6 +22,10 @@ public class GlobalConfig : Singleton<GlobalConfig> {
     public ChildDoor ChildDoor;
     public GameObject PowerAdaptorUI;
     public GameObject KeyUI;
+    public GameObject CreditsUI;
+
+    public AudioSource ScreamNoise;
+    public AudioSource HorrorNoise;
 
     public GameObject ArtefactRoot;
     public Image ArtefactImage;

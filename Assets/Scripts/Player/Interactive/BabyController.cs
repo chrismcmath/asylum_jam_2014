@@ -12,6 +12,7 @@ public class BabyController : HoldableObject {
 		GC = GameObject.Find("Global").GetComponent<GameController>();
 
         BabyModel.Instance.AddStateChangeListener(OnStateChange);
+        CryNoise.Play();
     }
 
 	void OnTriggerEnter (Collider other) {
@@ -52,6 +53,10 @@ public class BabyController : HoldableObject {
                 break;
             case BabyModel.BabyState.CRY:
                 OnBabyCry();
+                break;
+            case BabyModel.BabyState.OUT:
+                CryNoise.Stop();
+                SleepNoise.Stop();
                 break;
         }
     }

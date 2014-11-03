@@ -84,7 +84,7 @@ public class InputPlaybackController : MonoBehaviour {
 		PlaybackIndex++;
 
 		// temporarly restart
-		if (PlaybackIndex == RecordedPositions.Count) PlaybackIndex = 0;
+		if (PlaybackIndex == RecordedPositions.Count) { PlaybackIndex = 0; }
 	}
 
 	public void Record() {

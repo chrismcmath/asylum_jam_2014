@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour {
 	public GameObject Player;
 	public BlackScreenUI BlackScreen;
 
+    public bool _GameEnded = false;
+    public bool _FinishedLoop = false;
+
 	private bool LoadTextStarted;
 	private float NextTextTime;
 	private string txt;
@@ -28,7 +31,7 @@ public class GameController : MonoBehaviour {
 		switch (GameState) {
 			case GameStates.START: 
 				if (Input.GetMouseButtonDown(0)){
-                    BlackScreen.FadeOut();
+                    BlackScreen.FadeOut(2f);
 
 					GameState = GameStates.PLAYING;
 				}
@@ -40,7 +43,6 @@ public class GameController : MonoBehaviour {
 
 			case GameStates.GAMEOVER:
 				if (Input.GetMouseButtonDown(0)){
-				
 					Application.LoadLevel(Application.loadedLevel);
 				}
 				break;
@@ -59,28 +61,69 @@ public class GameController : MonoBehaviour {
 	}
 	
 	public void GameWin() {
-		print ("GAME WON!");
-		//PlayerCam.BroadcastMessage("ToggleFadeIn");
-		//PlayerCam.BroadcastMessage("ToggleFadeOut");
+        /*
 		NextTextTime = Time.time + 2.0f;
 		txt = "YOU SAVED DA BABBEYH! ";
 		time = 10.0f;
 		LoadTextStarted = true;
+        */
 
-		Player.BroadcastMessage("TurnOff");
+        Debug.Log("Game ended, bool: " + _GameEnded);
+        if (_GameEnded) {
+            Debug.Log("fade in");
+            if (!_FinishedLoop) {
+                BlackScreen.FadeIn(10f);
+                _FinishedLoop = true;
+                GlobalConfig.Instance.CreditsUI.SetActive(true);
+            }
+            return;
+        }
+
+        _GameEnded = true;
+
+        BlackScreen.FadeIn(4f);
+
+        BabyModel.Instance.State = BabyModel.BabyState.OUT;
+        GlobalConfig.Instance.Player.GetComponent<MovementActivator>().Deactivate();
+        StartCoroutine(EndGameSequence());
 	}
-	
+
+    private IEnumerator EndGameSequence() {
+        yield return new WaitForSeconds(8.0f);
+
+        Debug.Log("a");
+		Player.BroadcastMessage("TurnOff");
+		//PlayerCam.BroadcastMessage("ToggleFadeIn");
+		//PlayerCam.BroadcastMessage("ToggleFadeOut");
+        Debug.Log("b");
+        GlobalConfig.Instance.PlayerDarkness.SetActive(true);
+        Debug.Log("c");
+        GlobalConfig.Instance.Player.GetComponent<MovementActivator>().Deactivate();
+        Debug.Log("d");
+
+        BlackScreen.FadeOut(0.1f);
+        GlobalConfig.Instance.HorrorNoise.Play();
+    }
 	
 	public void GameOver() {
 		print ("GAME OVER");
+        Debug.Log("1");
+        BlackScreen.ToBlack();
+        Debug.Log("2");
+        BlackScreen.Text("Click to restart");
+        Debug.Log("3");
+        GlobalConfig.Instance.ScreamNoise.Play();
+        Debug.Log("4");
+
+        GameState = GameStates.GAMEOVER;
+        /*j
 		PlayerCam.BroadcastMessage("ToggleFadeIn");
 		PlayerCam.BroadcastMessage("ToggleFadeOut");
 		NextTextTime = Time.time + 2.0f;
-		txt = "YOU DIDNT SAVE DA BABBEYH! \n \n Click to try again... ";
 		time = 99999.0f;
 		LoadTextStarted = true;
+        */
 	}
-	
 
 	void LoadText() {
 		GameObject clone;

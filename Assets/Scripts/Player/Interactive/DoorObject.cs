@@ -9,7 +9,6 @@ public class DoorObject : InteractiveObject {
 	public float RotationSpeed = 2.5f;
 
     public override bool OnAction() {
-		print ("test");
 		OpenDoor = !OpenDoor;
         return false;
     }

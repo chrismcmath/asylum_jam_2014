@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour {
     
     public void Awake() {
         _MovementActivator = gameObject.GetComponent<MovementActivator>();
-        Debug.Log("_MovementActivator " + _MovementActivator);
         if (_MovementActivator == null) {
             Debug.Log("ERROR Could not get _MovementActivator on PlayerController");
         }

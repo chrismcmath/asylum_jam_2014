@@ -29,7 +29,7 @@ public class BabyCamController : MonoBehaviour {
 			return;
 		}
 
-		print ("Trigger baby cam id: " + id);
+		//print ("Trigger baby cam id: " + id);
 
 		//turn off all cams except our switch id
 		for (int i=0; i<BabyCams.Length; i++) {

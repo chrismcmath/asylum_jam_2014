@@ -6,12 +6,20 @@ public class BlackScreenUI : MonoBehaviour {
     public Image BlackScreen;
     public Text Title;
 
-    public void FadeIn() {
-        BlackScreen.CrossFadeAlpha(255f, 2.0f, true);
+    public void FadeIn(float speed) {
+        BlackScreen.CrossFadeAlpha(1f, speed, true);
     }
 
-    public void FadeOut() {
-        BlackScreen.CrossFadeAlpha(0f, 2.0f, true);
+    public void FadeOut(float speed) {
+        BlackScreen.CrossFadeAlpha(0f, speed, true);
         Title.text = "";
+    }
+
+    public void ToBlack() {
+        BlackScreen.CrossFadeAlpha(1f, 0.1f, true);
+    }
+
+    public void Text(string text) {
+        Title.text = text;
     }
 }
