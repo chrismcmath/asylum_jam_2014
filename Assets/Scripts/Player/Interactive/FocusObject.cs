@@ -13,7 +13,6 @@ public class FocusObject : HoldableObject {
 
     public override bool OnPutDown() {
         GlobalConfig.Instance.Player.GetComponent<PlayerController>().Defocus();
-
         return true;
     }
 

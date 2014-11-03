@@ -16,6 +16,11 @@ public class GlobalConfig : Singleton<GlobalConfig> {
     public LayerMask InteractionLayerMask;
     public SafeController SafeController;
     public WindowsController WindowsController;
+    public ComputerController ComputerController;
+    public InteractionRouter InteractionRouter;
+    public ChildDoor ChildDoor;
+    public GameObject PowerAdaptorUI;
+    public GameObject KeyUI;
 
     public GameObject ArtefactRoot;
     public Image ArtefactImage;
@@ -24,4 +29,5 @@ public class GlobalConfig : Singleton<GlobalConfig> {
     public float BatteryDisappearDelay = 2f;
     public string ComputerPassword = "sarah";
     public string SafePassword = "4991";
+    public bool IsTyping = false;
 }

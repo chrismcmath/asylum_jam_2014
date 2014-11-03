@@ -9,7 +9,6 @@ public class DarknessController : MonoBehaviour {
 	public NavMeshAgent Agent;
 	public GameObject BabyWind;
 	//public InputPickupController PickupCtrl;
-	public BabyModel Baby;
 
 	private ParticleSystem ps;
 	private DarknessParticleAgent pAgent;
@@ -37,8 +36,7 @@ public class DarknessController : MonoBehaviour {
 		if (!Active)
 			return;
 
-
-		if (Baby.State == BabyModel.BabyState.HELD) {
+		if (BabyModel.Instance.State == BabyModel.BabyState.HELD) {
 			Agent.SetDestination(HomeTarget.position);
 			if(!BabyWind.activeSelf) BabyWind.SetActive(true);
 			if(restarted) {

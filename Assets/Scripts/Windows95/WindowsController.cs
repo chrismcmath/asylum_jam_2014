@@ -17,9 +17,30 @@ public class WindowsController : MonoBehaviour {
 
     private int _BackgroundKey = 0; 
     private bool _IsOn = false;
-    private bool _CursorAvailable = true;
+    private bool _CursorAvailable = false;
+    private bool _IsFocused = false;
+
+    public void Update() {
+        if (_IsFocused && !GlobalConfig.Instance.IsTyping) {
+            if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")) {
+                /*
+                if (Input.GetKeyDown(KeyCode.Tab) ||
+                        Input.GetKeyDown(KeyCode.Space) ||
+                        Input.GetKeyDown(KeyCode.Escape) ||
+                        Input.GetKeyDown(KeyCode.Enter) ||
+                        Input.GetKeyDown(KeyCode.LeftControl) ||
+                        Input.GetKeyDown(KeyCode.RightControl) ||
+                        Input.GetKeyDown(KeyCode.Return)) {
+                        */
+                GlobalConfig.Instance.ComputerController.ForceDrop();
+                GlobalConfig.Instance.InteractionRouter.ForceDrop();
+                OnDefocus();
+            }
+        }
+    }
 
     private void SetBackground(string key) {
+        Debug.Log("setbackground " + key);
         SetSprite(key, Background);
     }
 
@@ -62,10 +83,13 @@ public class WindowsController : MonoBehaviour {
         if (_CursorAvailable) {
             Cursor.SetActive(true);
         }
+
+        _IsFocused = true;
     }
 
     public void OnDefocus() {
         Cursor.SetActive(false);
+        _IsFocused = false;
     }
 
     private void TryTurnOn() {
@@ -84,6 +108,8 @@ public class WindowsController : MonoBehaviour {
     }
 
     private void BootComputer() {
+        _IsOn = true;
+        GlobalConfig.Instance.PowerAdaptorUI.SetActive(false);
         StartCoroutine(ProgressBackgroundAfterWait(0.0f));
     }
 
@@ -101,7 +127,7 @@ public class WindowsController : MonoBehaviour {
         }
 
         if (_BackgroundKey < 3) {
-            StartCoroutine(ProgressBackgroundAfterWait(20.0f));
+            StartCoroutine(ProgressBackgroundAfterWait(8.0f));
         } else {
             Login.SetActive(true);
             _CursorAvailable = true;

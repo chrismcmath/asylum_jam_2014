@@ -13,6 +13,7 @@ public class Artefact : HoldableObject {
     }
 
     public override bool OnPutDown() {
+        Debug.Log("on put down Artefact");
         ArtefactCreator.Instance.Destroy();
         return true;
     }

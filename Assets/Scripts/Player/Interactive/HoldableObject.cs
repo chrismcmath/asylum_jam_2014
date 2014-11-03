@@ -10,14 +10,13 @@ public abstract class HoldableObject : InteractiveObject {
     abstract public bool OnPutDown();
 
     public override bool OnAction() {
+        Debug.Log("HoldableObject onaction, isheld: " + _IsHeld);
 		if (!_IsHeld) {
             if (OnPickUp()) {
-                GetComponent<Collider>().enabled = false;
                 _IsHeld = true;
             }
         } else {
             if (OnPutDown()) {
-                GetComponent<Collider>().enabled = true;
                 _IsHeld = false;
             }
         }

@@ -9,6 +9,8 @@ public class Moveable : HoldableObject {
     }
 
     public override bool OnPickUp() {
+        Debug.Log("movable OnPickUp");
+        GetComponent<Collider>().enabled = false;
         _Rigidbody.isKinematic = true;
         transform.parent = GlobalConfig.Instance.PlayerObjectRoot;
         TweenToZero(GlobalConfig.Instance.FocusObjectTweenTime);
@@ -16,6 +18,8 @@ public class Moveable : HoldableObject {
     }
 
     public override bool OnPutDown() {
+        Debug.Log("movable OnPutDown");
+        GetComponent<Collider>().enabled = true;
         _Rigidbody.isKinematic = false;
         _Rigidbody.useGravity = true;
         transform.parent = GlobalConfig.Instance.SceneRoot;

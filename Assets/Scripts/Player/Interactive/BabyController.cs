@@ -22,7 +22,8 @@ public class BabyController : HoldableObject {
 	}
 
     public override bool OnPickUp() {
-        transform.parent = GlobalConfig.Instance.PlayerObjectRoot;
+        GetComponent<Collider>().enabled = false;
+        transform.parent = GlobalConfig.Instance.PlayerBabyRoot;
         TweenToZero(GlobalConfig.Instance.FocusObjectTweenTime);
 
         BabyModel.Instance.State = BabyModel.BabyState.HELD;
@@ -30,6 +31,7 @@ public class BabyController : HoldableObject {
     }
 
     public override bool OnPutDown() {
+        GetComponent<Collider>().enabled = true;
         BabyDockController babyDock = GetBabyDock();
         if (babyDock == null) {
             Debug.Log("No babyDock found");
