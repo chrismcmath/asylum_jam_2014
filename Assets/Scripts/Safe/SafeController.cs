@@ -30,5 +30,6 @@ public class SafeController : MonoBehaviour {
     private void OpenSafe() {
         Debug.Log("opensafe");
         OpenNoise.Play();
+        Destroy(gameObject);
     }
 }

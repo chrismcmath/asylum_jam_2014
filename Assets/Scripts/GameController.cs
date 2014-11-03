@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 	public GameObject TextPrefab;
 	public Transform TextLocation;
 	public GameObject Player;
+	public BlackScreenUI BlackScreen;
 
 	private bool LoadTextStarted;
 	private float NextTextTime;
@@ -27,12 +28,8 @@ public class GameController : MonoBehaviour {
 		switch (GameState) {
 			case GameStates.START: 
 				if (Input.GetMouseButtonDown(0)){
-					StartText.SetActive(false);
-					PlayerCam.BroadcastMessage("ToggleFadeIn");
-					NextTextTime = Time.time + 2.0f;
-					txt = "SAVE DA BABBEYH!";
-					time = 5.0f;
-					LoadTextStarted = true;
+                    BlackScreen.FadeOut();
+
 					GameState = GameStates.PLAYING;
 				}
 				break;

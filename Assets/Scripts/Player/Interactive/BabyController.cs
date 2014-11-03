@@ -2,15 +2,14 @@ using UnityEngine;
 using System.Collections;
 
 public class BabyController : HoldableObject {
-    private Rigidbody _Rigidbody = null;
+    public AudioSource SleepNoise;
+    public AudioSource CryNoise;
 
     private Transform _BabyDockAnchor;
 	private GameController GC;
 	
 	void Awake() {
 		GC = GameObject.Find("Global").GetComponent<GameController>();
-
-        _Rigidbody = gameObject.GetComponent<Rigidbody>();
 
         BabyModel.Instance.AddStateChangeListener(OnStateChange);
     }
@@ -31,7 +30,6 @@ public class BabyController : HoldableObject {
     }
 
     public override bool OnPutDown() {
-        GetComponent<Collider>().enabled = true;
         BabyDockController babyDock = GetBabyDock();
         if (babyDock == null) {
             Debug.Log("No babyDock found");
@@ -60,8 +58,13 @@ public class BabyController : HoldableObject {
 
     private void OnBabyHeld() {
         Debug.Log("OnBabyHeld");
+        CryNoise.Stop();
+        SleepNoise.Play();
     }
     private void OnBabyDown() {
+        GetComponent<Collider>().enabled = true;
+        SleepNoise.Stop();
+        CryNoise.Play();
         Debug.Log("OnBabyDown");
         if (_BabyDockAnchor == null) {
             Debug.Log("ERROR No _BabyDockAnchor set");

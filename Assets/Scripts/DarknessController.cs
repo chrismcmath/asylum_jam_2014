@@ -4,6 +4,7 @@ using System.Collections;
 public class DarknessController : MonoBehaviour {
 	public bool Active;
 	public GameObject ParticlesPrefab;
+    public AudioSource IncomingSound;
 	public Transform HomeTarget;
 	public Transform BabyTarget;
 	public NavMeshAgent Agent;
@@ -17,7 +18,7 @@ public class DarknessController : MonoBehaviour {
 	public bool restarted;
 
 	void Awake(){
-
+        BabyModel.Instance.AddStateChangeListener(OnStateChange);
 	}
 
 	// Use this for initialization
@@ -64,4 +65,17 @@ public class DarknessController : MonoBehaviour {
 			Agent.speed = AgentNormalSpeed;
 		}
 	}
+
+    public void OnStateChange(BabyModel.BabyState state) {
+        switch (state) {
+            case BabyModel.BabyState.HELD:
+                IncomingSound.Stop();
+                break;
+            case BabyModel.BabyState.DOWN:
+                IncomingSound.Play();
+                break;
+            case BabyModel.BabyState.CRY:
+                break;
+        }
+    }
 }
