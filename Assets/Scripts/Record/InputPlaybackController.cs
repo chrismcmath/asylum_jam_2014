@@ -41,7 +41,7 @@ public class InputPlaybackController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Tab)) {
-			TurnOff();
+            GameObject.Find("Global").GetComponent<GameController>().GameWin();
 		}
 
 		if (!turnedOff && GC.GameState == GameController.GameStates.WIN ) {

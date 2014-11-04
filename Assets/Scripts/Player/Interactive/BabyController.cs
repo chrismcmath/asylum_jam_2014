@@ -55,6 +55,7 @@ public class BabyController : HoldableObject {
                 OnBabyCry();
                 break;
             case BabyModel.BabyState.OUT:
+                transform.parent = GlobalConfig.Instance.SceneRoot;
                 CryNoise.Stop();
                 SleepNoise.Stop();
                 break;
@@ -69,6 +70,7 @@ public class BabyController : HoldableObject {
         GetComponent<Collider>().enabled = true;
         SleepNoise.Stop();
         CryNoise.Play();
+
         if (_BabyDockAnchor == null) {
             Debug.Log("ERROR No _BabyDockAnchor set");
         }

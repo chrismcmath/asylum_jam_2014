@@ -5,6 +5,7 @@ public class DarknessController : MonoBehaviour {
 	public bool Active;
 	public GameObject ParticlesPrefab;
     public AudioSource IncomingSound;
+    public AudioSource CreakingDoor;
 	public Transform HomeTarget;
 	public Transform BabyTarget;
 	public NavMeshAgent Agent;
@@ -73,6 +74,7 @@ public class DarknessController : MonoBehaviour {
                 break;
             case BabyModel.BabyState.DOWN:
                 IncomingSound.Play();
+                CreakingDoor.Play();
                 break;
             case BabyModel.BabyState.CRY:
                 break;
