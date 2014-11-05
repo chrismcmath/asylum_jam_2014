@@ -67,7 +67,6 @@ public class GameController : MonoBehaviour {
             if (!_FinishedLoop) {
                 BlackScreen.FadeIn(10f);
                 _FinishedLoop = true;
-                GlobalConfig.Instance.CreditsUI.SetActive(true);
             }
             return;
         }
@@ -86,8 +85,14 @@ public class GameController : MonoBehaviour {
 		Player.BroadcastMessage("TurnOff");
         GlobalConfig.Instance.PlayerDarkness.SetActive(true);
 
+        StartCoroutine(ShowCreditsAfterWait());
         BlackScreen.FadeOut(0.1f);
         GlobalConfig.Instance.HorrorNoise.Play();
+    }
+
+    private IEnumerator ShowCreditsAfterWait() {
+        yield return new WaitForSeconds(5.0f);
+        GlobalConfig.Instance.CreditsUI.SetActive(true);
     }
 	
 	public void GameOver() {
