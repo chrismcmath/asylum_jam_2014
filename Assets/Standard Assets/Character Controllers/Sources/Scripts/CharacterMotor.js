@@ -337,9 +337,9 @@ function TurnOff() {
 
 function Update () {
 	// Tobi: 
-	if (Input.GetKeyDown(KeyCode.Tab)) {
-		canControl = false;
-	}
+	//if (Input.GetKeyDown(KeyCode.Tab)) {
+	//	canControl = false;
+	//}
 		
 
 	if (!useFixedUpdate)

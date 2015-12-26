@@ -8,12 +8,12 @@ public class PromptOKController : ClickableUIController{
     public GameObject TextHighlight;
 
     public override void OnClicked() {
-        Debug.Log("got " + PasswordInput.value);
+        Debug.Log("got " + PasswordInput.text);
 
         GlobalConfig.Instance.IsTyping = false;
         TextHighlight.SetActive(false);
 
-        if (!GlobalConfig.Instance.WindowsController.OnCheckPassword(PasswordInput.value)) {
+        if (!GlobalConfig.Instance.WindowsController.OnCheckPassword(PasswordInput.text)) {
             ErrorMsg.SetActive(true);
         } else {
             //Prompt.SetActive(false);

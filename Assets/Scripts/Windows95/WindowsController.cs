@@ -22,16 +22,14 @@ public class WindowsController : MonoBehaviour {
 
     public void Update() {
         if (_IsFocused && !GlobalConfig.Instance.IsTyping) {
-            if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical")) {
-                /*
-                if (Input.GetKeyDown(KeyCode.Tab) ||
+            if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical") ||
+			    Input.GetKeyDown(KeyCode.Tab) ||
                         Input.GetKeyDown(KeyCode.Space) ||
                         Input.GetKeyDown(KeyCode.Escape) ||
-                        Input.GetKeyDown(KeyCode.Enter) ||
                         Input.GetKeyDown(KeyCode.LeftControl) ||
                         Input.GetKeyDown(KeyCode.RightControl) ||
-                        Input.GetKeyDown(KeyCode.Return)) {
-                        */
+                        Input.GetKeyDown(KeyCode.Return) ) {
+                        
                 GlobalConfig.Instance.ComputerController.ForceDrop();
                 GlobalConfig.Instance.InteractionRouter.ForceDrop();
                 OnDefocus();
